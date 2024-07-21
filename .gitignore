@@ -1,0 +1,3 @@
+*.o
+decl-verify-amd64
+.knit
