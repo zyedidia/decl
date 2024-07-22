@@ -278,6 +278,10 @@ verify_bundle(Context* ctx)
     size_t start = ctx->count;
     while (ctx->count - start < BUNDLE_SIZE) {
         if (!ctxnext(ctx)) {
+            if (ctx->count == ctx->n) {
+                // last bundle does not need to be 16 bytes
+                return ctx->count - start < BUNDLE_SIZE;
+            }
             fprintf(stderr, "%lx: decode error\n", ctx->addr);
             return false;
         }

@@ -52,6 +52,10 @@ int main(int argc, char** argv) {
 
         uint8_t* insns = (uint8_t*) (&buf[p->offset]);
         size_t n = p->filesz;
+        if (p->filesz != p->memsz) {
+            fprintf(stderr, "%lx: filesz and memsz aren't equal\n", p->vaddr);
+            exit(1);
+        }
 
         if (!verify(insns, n, p->vaddr)) {
             fprintf(stderr, "verification failed\n");
