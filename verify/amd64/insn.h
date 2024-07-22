@@ -264,6 +264,8 @@ static bool mnemonic_valid(ZydisMnemonic mnemonic) {
     case ZYDIS_MNEMONIC_SQRTSS:
     case ZYDIS_MNEMONIC_UNPCKLPS:
     case ZYDIS_MNEMONIC_PCMPEQW:
+    case ZYDIS_MNEMONIC_RET:
+    case ZYDIS_MNEMONIC_SYSCALL:
         return true;
     }
     return false;
