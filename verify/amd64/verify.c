@@ -38,7 +38,6 @@ ctxnext(Context* ctx)
         ctx->count += ctx->instr.length;
     }
     ZyanStatus status = ZydisDecoderDecodeInstruction(&ctx->decoder, &ctx->zcontext, &ctx->insns[ctx->count], ctx->n - ctx->count, &ctx->instr);
-    printf("decode %lx, %ld\n", ctx->addr, ctx->instr.length);
     if (ZYAN_FAILED(status)) {
         return false;
     }
@@ -277,7 +276,6 @@ static bool
 verify_bundle(Context* ctx)
 {
     size_t start = ctx->count;
-    printf("%lx: start: %ld\n", ctx->addr, start);
     while (ctx->count - start < BUNDLE_SIZE) {
         if (!ctxnext(ctx)) {
             fprintf(stderr, "%lx: decode error\n", ctx->addr);
@@ -306,7 +304,6 @@ verify_bundle(Context* ctx)
         }
     }
 
-    printf("%ld %ld\n", ctx->count, start);
     size_t count = ctx->count - start;
 
     if (count != BUNDLE_SIZE) {
