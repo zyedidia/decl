@@ -1,3 +1,10 @@
 *.o
 decl-verify-amd64
 .knit
+build/binutils
+build/build-*
+build/decl
+build/gcc
+build/*.tar.gz
+build/musl-1.2.4
+decl-bin
