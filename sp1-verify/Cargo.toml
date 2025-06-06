@@ -1,0 +1,11 @@
+[package]
+name = "sp1-verify-std"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+verifier = { version = "0.0.0", path = "verifier" }
+
+[profile.release]
+opt-level = 3
+lto = "fat"

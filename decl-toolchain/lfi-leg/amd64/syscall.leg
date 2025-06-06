@@ -1,0 +1,49 @@
+%{
+#include "amd64/amd64.h"
+#include "op.h"
+#include "args.h"
+#include "util.h"
+
+#define YY_INPUT(ctx, buf, result, max_size)   \
+{                                              \
+    char yyc = ctx->op->text[ctx->idx];        \
+    ctx->idx += yyc != 0;                      \
+    result = yyc == 0 ? 0 : (*(buf) = yyc, 1); \
+}                                              \
+%}
+
+Top = Syscall | Retcall
+
+Syscall = 'syscall' - {
+    mkdirective(".bundle_lock");
+    mkinsn("leaq 1024f(%%rip), %%r11");
+    mkinsn("jmpq *(%s)", args.sysexternal ? "%r13" : "%r14");
+    mklabel("1024");
+    mkdirective(".bundle_unlock");
+}
+
+Retcall = 'libret' - {
+    mkdirective(".bundle_lock");
+    mkinsn("leaq 1024f(%%rip), %%r11");
+    mkinsn("jmpq *24(%s)", args.sysexternal ? "%r13" : "%r14");
+    mklabel("1024");
+    mkdirective(".bundle_unlock");
+}
+
+%%
+
+void
+amd64_syscallpass(struct op* op)
+{
+    if (!op->insn)
+        return;
+    yycontext ctx;
+    memset(&ctx, 0, sizeof(yycontext));
+    ctx.op = op;
+    oplocate(op);
+    if (yyparse(&ctx)) {
+        opremove(op);
+        opfree(op);
+    }
+    yyrelease(&ctx);
+}

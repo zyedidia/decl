@@ -1,0 +1,4 @@
+option('only_verifier',
+  type: 'boolean',
+  value: false,
+  description: 'only build the verifier')

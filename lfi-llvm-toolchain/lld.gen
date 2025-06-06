@@ -1,0 +1,53 @@
+#!/bin/bash
+
+if [ "$MARCH" = "x86_64" ]
+then
+    LFIARCH=amd64
+elif [ "$MARCH" = "aarch64" ]
+then
+    LFIARCH=arm64
+elif [ "$MARCH" = "riscv64" ]
+then
+    LFIARCH=riscv64
+fi
+
+cat << EOM
+#!/bin/bash
+DIR=\$(CDPATH= cd -- "\$(dirname -- "\$0")" && pwd)
+
+set -e
+
+ARGS=
+
+OUTPUT=a.out
+
+while test \$# -gt 0; do
+  case "\$1" in
+    -o)
+      shift
+      if test \$# -gt 0; then
+        OUTPUT=\$1
+      fi
+      ARGS="\$ARGS -o \$1"
+      shift
+      ;;
+    -dynamic-linker)
+      shift
+      ARGS="\$ARGS -dynamic-linker \$DIR/../sysroot/lib/ld-musl-$MARCH.so.1"
+      shift
+      ;;
+    *)
+      ARGS="\$ARGS \$1"
+      shift
+      ;;
+  esac
+done
+
+(exec -a \$0 \$DIR/lld.orig \$ARGS --no-dependent-libraries)
+EOM
+
+if [[ $ARCH == *"lfi" ]]; then
+    cat << EOM
+lfi-postlink -a $LFIARCH $(lfi-leg -a $LFIARCH --flags=postlink $LFIFLAGS) \$OUTPUT
+EOM
+fi

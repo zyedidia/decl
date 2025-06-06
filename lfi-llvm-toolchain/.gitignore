@@ -1,0 +1,15 @@
+a.out
+*.o
+build-compiler-rt-*
+build-libcxx-*
+build-llvm-*
+build-llvm
+musl
+llvm-project
+mimalloc
+linux
+aarch64-native-clang
+aarch64-lfi-*clang
+x86_64-native-*clang
+x86_64-lfi-*clang
+*.tar.gz

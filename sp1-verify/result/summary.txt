@@ -1,0 +1,7 @@
+system          | groth16-x64 | plonk-x64 | groth16-A64 | plonk-A64
+---
+decl-timer      | 1.10x       | 1.11x     | 1.07x       | 1.08x
+decl-branch     | 1.30x       | 1.30x     | 1.11x       | 1.12x
+wasmtime        | 2.38x       | 2.34x     | 3.11x       | 3.07x
+wasmtime-nosimd | 2.38x       | 2.35x     | 3.20x       | 3.19x
+wasm3           | 33.72x      | 34.69x    | 28.46x      | 30.03x
