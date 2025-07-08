@@ -11,3 +11,5 @@ the code that is used to construct and use the BDD.
 
 The SPEC 2017 benchmarks require you to separately have access to SPEC. If you
 have questions about how to run the benchmarks please contact <span>z</span><span>y</span><span>e</span><span>d</span><span>i</span><span>d</span><span>i</span><span>a</span><span>@</span><span>s</span><span>t</span><span>a</span><span>n</span><span>f</span><span>o</span><span>r</span><span>d</span><span>.</span><span>e</span><span>d</span><span>u</span>
+
+See individual directories for details about their role.
