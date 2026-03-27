@@ -3,7 +3,7 @@
 Deterministic Client (DeCl) is an extension of LFI for enforcing determinism
 and deterministic metering on native code. This repository contains the
 artifact for the research prototype of DeCl, which can be used to reproduce the
-experiments from our paper.
+experiments from our paper, available [here](https://zyedidia.github.io/papers/decl_osdi25.pdf).
 
 Some components are external: see https://github.com/scslab/smart-contract-scalability
 for the implementation of Groundhog, and https://github.com/zyedidia/codegram for
